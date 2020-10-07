@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { newRate } from "../Actions/main";
 
 function MainForm(props) {
   const [input, setInput] = useState("");
@@ -10,15 +11,19 @@ function MainForm(props) {
 
   return (
     <div>
-      <form>
-        <input
-          type="text"
-          value={input}
-          onChange={changes}
-          placeholder="Input a Number"
-        />
-        <button onClick={() => {}}>Enter</button>
-      </form>
+      <input
+        type="text"
+        value={input}
+        onChange={changes}
+        placeholder="Input a Number"
+      />
+      <button
+        onClick={() => {
+          props.newRate(input);
+        }}
+      >
+        Enter
+      </button>
     </div>
   );
 }
@@ -29,4 +34,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, {})(MainForm);
+export default connect(mapStateToProps, { newRate })(MainForm);

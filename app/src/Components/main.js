@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { fetchRates } from "../Actions/main";
 
 function Main(props) {
+  useEffect(() => {
+    props.fetchRates();
+  }, []);
+
+  const objKeys = Object.keys(props.currency);
+
   return (
     <div>
-      {props.currency.map((item) => {
-        return <h2>{`${item.name} : ${item.symbol} ${item.rate}`}</h2>;
+      {objKeys.map((item) => {
+        return (
+          <h2 key={item}>
+            {item} : {(props.currency[item] * props.rate).toFixed(2)}
+          </h2>
+        );
       })}
     </div>
   );
@@ -13,8 +24,12 @@ function Main(props) {
 
 const mapStateToProps = (state) => {
   return {
+    base: state.base,
     currency: state.currency,
+    rate: state.rateMultiply,
   };
 };
 
-export default connect(mapStateToProps, {})(Main);
+const mapDispatchToProps = { fetchRates };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
