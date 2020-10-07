@@ -10,14 +10,17 @@ function MainForm(props) {
   };
 
   return (
-    <div>
+    <div className="inputBox">
+      <h2>Enter Number to Multiply</h2>
       <input
+        className="input"
         type="text"
         value={input}
         onChange={changes}
         placeholder="Input a Number"
       />
       <button
+        className="button"
         onClick={() => {
           props.newRate(input);
         }}
